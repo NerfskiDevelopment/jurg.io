@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jurg.io</title>
+<style>
+    /* Reset & base */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: #1e1e1e;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background 0.3s ease;
+    }
+
+    a {
+        color: #ffc308;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+
+    /* Header */
+    header {
+        padding: 2rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        color: #ffc308;
+        cursor: default;
+        transition: transform 0.3s ease;
+    }
+
+    header h1:hover {
+        transform: scale(1.05);
+    }
+
+    nav a {
+        margin-left: 2rem;
+        font-weight: 500;
+        position: relative;
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        background: #ffc308;
+        left: 0;
+        bottom: -5px;
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 5% 2rem;
+        background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    }
+
+    .hero h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ffc308;
+        animation: fadeInUp 1s ease forwards;
+        opacity: 0;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeInUp 1.3s ease forwards;
+    }
+
+    .hero button {
+        padding: 0.8rem 2rem;
+        background: #ffc308;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #ffc30866;
+    }
+
+    /* Projects Section */
+    .projects {
+        padding: 5% 5%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .project-card {
+        background: #2a2a2a;
+        border: 1px solid #333;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px #ffc30844;
+    }
+
+    .project-card img {
+        width: 100%;
+        display: block;
+    }
+
+    .project-card h3 {
+        padding: 1rem;
+        font-size: 1.5rem;
+        color: #ffc308;
+    }
+
+    .project-card p {
+        padding: 0 1rem 1rem 1rem;
+        color: #ccc;
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        border-top: 1px solid #333;
+        font-size: 0.9rem;
+        color: #888;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        0% {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>jurg.io</h1>
+    <nav>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Welcome to My Projects</h2>
+    <p>Discover my personal experiments, side projects, and creative explorations. Everything here is built with care and a love for code.</p>
+    <button onclick="document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })">See Projects</button>
+</section>
+
+<!--
+<section class="projects" id="projects">
+    <div class="project-card">
+        <img src="https://via.placeholder.com/400x200" alt="Project 1">
+        <h3>Project One</h3>
+        <p>A short description of Project One. Highlighting key features and goals.</p>
+    </div>
+    <div class="project-card">
+        <img src="https://via.placeholder.com/400x200" alt="Project 2">
+        <h3>Project Two</h3>
+        <p>A short description of Project Two. Highlighting key features and goals.</p>
+    </div>
+    <div class="project-card">
+        <img src="https://via.placeholder.com/400x200" alt="Project 3">
+        <h3>Project Three</h3>
+        <p>A short description of Project Three. Highlighting key features and goals.</p>
+    </div>
+</section>
+-->
+
+<footer id="contact">
+</footer>
+
+</body>
+</html>
