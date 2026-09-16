@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Park Printing Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+
+  <script src="./js/web.js" type="text/javascript"></script>
+  <script src="./js/login.js" type="text/javascript"></script>
+  <script src="./js/nav.js" type="text/javascript"></script>
+  <script src="./js/dashboard.js" type="text/javascript"></script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <!-- ───────────────────────── Sidebar ───────────────────────── -->
+  <nav class="sidebar" id="sidebar">
+    <header>
+      <image src="./logos/park.png" style="width: 140px; float:left;"></image>
+    </header>
+
+    <ul class="nav-links">
+      <li id="nav_company">
+        <button onclick="toggleMenu(this)">Company <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_HOME.HTML" onclick="nav_c('DASHBOARD_HOME.HTML');">News</a>
+          <a name="nav-btn" id="DASHBOARD_QUICKLINKS.HTML" onclick="nav_c('DASHBOARD_QUICKLINKS.HTML');">Quick Links</a>
+          <a name="nav-btn" id="DASHBOARD_COMPANY_DIRECTORY.HTML" onclick="nav_c('DASHBOARD_COMPANY_DIRECTORY.HTML');">Directory</a>
+        </div>
+      </li>
+      <li id="nav_hr">
+        <button onclick="toggleMenu(this)">HR <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_HR_DOCUMENTS.HTML" onclick="nav_c('DASHBOARD_HR_DOCUMENTS.HTML');">Documents</a>
+        </div>
+      </li>
+      <li id="nav_dashboards">
+        <button onclick="toggleMenu(this)">Dashboards <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_ADMIN_SALES.HTML" onclick="nav_c('DASHBOARD_ADMIN_SALES.HTML');">Sales Overview</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_SALES.HTML" onclick="nav_c('DASHBOARD_ADMIN_SALES.HTML');">Marketing Metrics</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_SALES.HTML" onclick="nav_c('DASHBOARD_ADMIN_SALES.HTML');">Operational KPIs</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_SALES.HTML" onclick="nav_c('DASHBOARD_ADMIN_SALES.HTML');">Support Tickets</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_SALES.HTML" onclick="nav_c('DASHBOARD_ADMIN_SALES.HTML');">Shipping</a>
+        </div>
+      </li>
+      <li id="nav_slingshot">
+        <button onclick="toggleMenu(this)">Slingshot <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_SLINGSHOT_ACTIVE.HTML" onclick="nav_c('DASHBOARD_SLINGSHOT_ACTIVE.HTML');">Active Jobs</a>
+          <a name="nav-btn" id="DASHBOARD_SLINGSHOT_PRESSCHEDULE.HTML" onclick="nav_c('DASHBOARD_SLINGSHOT_PRESSCHEDULE.HTML');">Press Schedule</a>
+          <a name="nav-btn" id="DASHBOARD_SLINGSHOT_JOF.HTML" onclick="nav_c('DASHBOARD_SLINGSHOT_JOF.HTML');">Job Order Form</a>
+        </div>
+      </li>
+      <li style="display: none;">
+        <button onclick="toggleMenu(this)">Apps <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_IT_DASHMANAGEMENT.HTML" onclick="nav_c('DASHBOARD_IT_DASHMANAGEMENT.HTML');">Trackle</a>
+          <a name="nav-btn" id="DASHBOARD_IT_DASHMANAGEMENT.HTML" onclick="nav_c('DASHBOARD_IT_DASHMANAGEMENT.HTML');">IntraSync</a>
+          <a name="nav-btn" id="DASHBOARD_IT_DASHMANAGEMENT.HTML" onclick="nav_c('DASHBOARD_IT_DASHMANAGEMENT.HTML');">Job Order Form</a>
+        </div>
+      </li>
+      <li id="nav_stores">
+        <button onclick="toggleMenu(this)">Park Stores <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_STORES_ORDERS.HTML" onclick="nav_c('DASHBOARD_STORES_ORDERS.HTML');"><image style="height: 15px;" src="./images/orders.png"></image>&nbsp;&nbsp;&nbsp;Orders</a>
+          <a name="nav-btn" id="DASHBOARD_STORES_PRODUCTS.HTML" onclick="nav_c('DASHBOARD_STORES_PRODUCTS.HTML');"><image style="height: 15px;" src="./images/products.png"></image>&nbsp;&nbsp;&nbsp;Products</a>
+          <a name="nav-btn" id="DASHBOARD_STORES_WAREHOUSE.HTML" onclick="nav_c('DASHBOARD_STORES_WAREHOUSE.HTML');"><image style="height: 15px;" src="./images/warehouse.png"></image>&nbsp;&nbsp;Warehouse</a>
+          <a name="nav-btn" id="DASHBOARD_STORES_SHIPPING.HTML" onclick="nav_c('DASHBOARD_STORES_SHIPPING.HTML');"><image style="height: 15px;" src="./images/shipping.png"></image>&nbsp;&nbsp;&nbsp;Shipping</a>
+          <a name="nav-btn" id="DASHBOARD_STORES_REPORTS.HTML" onclick="nav_c('DASHBOARD_STORES_REPORTS.HTML');"><image style="height: 15px;" src="./images/reports.png"></image>&nbsp;&nbsp;&nbsp;Reports</a>
+          <a name="nav-btn" id="DASHBOARD_STORES_BILLING.HTML" onclick="nav_c('DASHBOARD_STORES_BILLING.HTML');"><image style="height: 15px;" src="./images/billing.png"></image>&nbsp;&nbsp;&nbsp;Billing</a>
+
+          <a name="nav-btn" id="DASHBOARD_STORES_OPTIONS.HTML" onclick="nav_c('DASHBOARD_STORES_OPTIONS.HTML');" style="display:none;">Options</a>
+        </div>
+      </li>
+      <li id="nav_it">
+        <button onclick="toggleMenu(this)">IT Desk <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_IT_WIKI.HTML" onclick="nav_c('DASHBOARD_IT_WIKI.HTML');">PPS IT Wiki</a>
+          <a name="nav-btn" id="DASHBOARD_IT_DASHMANAGEMENT.HTML" onclick="nav_c('DASHBOARD_IT_DASHMANAGEMENT.HTML');">VPN / Remote Access</a>
+          <a name="nav-btn" id="DASHBOARD_IT_DASHMANAGEMENT.HTML" onclick="nav_c('DASHBOARD_IT_DASHMANAGEMENT.HTML');">Applied Tech Help</a>
+        </div>
+      </li>
+      <li id="nav_admin">
+        <button onclick="toggleMenu(this)">Admin <span>▶</span></button>
+        <div class="submenu">
+          <a name="nav-btn" id="DASHBOARD_ADMIN_VAULT.HTML" onclick="nav_c('DASHBOARD_ADMIN_VAULT.HTML');">Credientals Vault</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_USERS.HTML" onclick="nav_c('DASHBOARD_ADMIN_USERS.HTML');">User Management</a>
+          <a name="nav-btn" id="DASHBOARD_ADMIN_DASHBOARD.HTML" onclick="nav_c('DASHBOARD_ADMIN_DASHBOARD.HTML');">Dashboard Management</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="toggle-btn" onclick="collapseSidebar()">
+      &#9776;
+    </div>
+  </nav>
+
+  <!-- ───────────────────────── Main Content ───────────────────────── -->
+
+  
+  <main class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search"><input type="text" id="top-search" placeholder="Search…" value oninput="searchPage();"></div>
+      <div class="icons">
+        <!--&#128100;-->
+        <img style="height: 40px; cursor: pointer;" src="./images/users.png" onclick="toggleOverlay();"></img>
+      </div>
+    </header>
+
+
+    <!-- Dashboard cards -->
+    <section class="dashboard notifications-section">
+  </div>
+
+  <!--AREA FOR THE HTML JSON -->
+  <div id="main-http-request--json-html-response" class="main-http-request--json-html-response-active">
+
+</div>
+</section>
+
+
+  </main>
+
+  <!-------------------------------OVERLAY --------------------------->
+  <!-- Fullscreen Overlay -->
+  <div id="avatarOverlay" class="overlay hidden">
+    <div class="overlay-content">
+      <h2>User Menu</h2>
+      <button class="danger" onclick="logout();">Logout</button>
+      <br /><br />
+      <button onclick="toggleOverlay()">Close</button>
+    </div>
+  </div>
+
+  <!-- ───────────────────────── Scripts ───────────────────────── -->
+  <script>
+    function toggleMenu(btn) {
+      const li = btn.parentElement;
+      li.classList.toggle('open');
+      
+      btn.querySelector('span').textContent = li.classList.contains('open') ? '▼' : '▶';
+    }
+
+    function collapseSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('collapsed');
+    }
+
+    function toggleOverlay() {
+      const overlay = document.getElementById('avatarOverlay');
+      overlay.classList.toggle('active');
+
+      overlay.classList.toggle('hidden');
+    }
+
+    window.addEventListener('click', (e) => {
+      if (window.innerWidth < 768) {
+        const sidebar = document.getElementById('sidebar');
+        if (!sidebar.contains(e.target) && !e.target.closest('.toggle-btn')) {
+          sidebar.classList.remove('show');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

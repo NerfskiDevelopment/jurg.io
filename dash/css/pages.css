@@ -1,0 +1,1136 @@
+/* =========================================================
+   PERSONAL HUB — LOG FOOD
+   ========================================================= */
+
+.log-food-page {
+    --lf-bg: #f5f6f8;
+    --lf-white: #ffffff;
+    --lf-text: #20242c;
+    --lf-muted: #7a818d;
+    --lf-border: #e5e7eb;
+    --lf-soft: #f8f9fb;
+
+    --lf-orange: #e2a54a;
+    --lf-orange-light: #fff3dc;
+    --lf-orange-dark: #9a681e;
+
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 26px;
+
+    color: var(--lf-text);
+
+    animation: logFoodEnter 400ms ease both;
+}
+
+.log-food-page *,
+.log-food-page *::before,
+.log-food-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.log-food-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 24px;
+}
+
+.log-food-header h1 {
+    margin: 5px 0 0;
+
+    font-weight: 780;
+    letter-spacing: -0.045em;
+}
+
+.log-food-header p {
+    margin: 6px 0 0;
+
+    color: var(--lf-muted);
+}
+
+.eyebrow {
+    display: block;
+
+    color: var(--lf-muted);
+
+    font-weight: 700;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+}
+
+.icon-button {
+    width: 44px;
+    height: 44px;
+
+    padding: 0;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 13px;
+
+    background: var(--lf-white);
+    color: var(--lf-muted);
+
+    cursor: pointer;
+
+    transition:
+        transform 150ms ease,
+        background 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.icon-button:hover {
+    transform: translateY(-2px);
+
+    background: #fafafa;
+
+    box-shadow:
+        0 6px 18px rgba(25, 30, 40, 0.08);
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.log-food-page section {
+    margin-bottom: 18px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 20px;
+
+    background: var(--lf-white);
+
+    box-shadow:
+        0 8px 30px rgba(30, 38, 52, 0.045);
+}
+
+
+/* =========================================================
+   CALORIE CARD
+   ========================================================= */
+
+.calorie-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(
+            circle at 50% 55%,
+            rgba(226, 165, 74, 0.08),
+            transparent 40%
+        ),
+        #ffffff;
+}
+
+.calorie-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.calorie-card h2 {
+    margin: 6px 0 0;
+
+    font-weight: 780;
+    letter-spacing: -0.04em;
+}
+
+.calorie-card h2 span {
+    color: #a4a9b1;
+    font-weight: 550;
+}
+
+.calorie-status {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 11px;
+
+    border: 1px solid #efd9ae;
+    border-radius: 999px;
+
+    background: var(--lf-orange-light);
+
+    color: var(--lf-orange-dark);
+
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--lf-orange);
+
+    box-shadow:
+        0 0 0 4px rgba(226, 165, 74, 0.13);
+
+    animation: statusPulse 2.4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   CALORIE RING
+   ========================================================= */
+
+.calorie-visual {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 280px;
+    height: 280px;
+
+    margin: 8px auto 4px;
+}
+
+.calorie-ring {
+    width: 100%;
+    height: 100%;
+
+    transform: rotate(-90deg);
+
+    overflow: visible;
+}
+
+.ring-background {
+    fill: none;
+
+    stroke: #f0f1f3;
+    stroke-width: 15;
+}
+
+.ring-progress {
+    fill: none;
+
+    stroke: var(--lf-orange);
+    stroke-width: 15;
+
+    stroke-linecap: round;
+
+    filter:
+        drop-shadow(
+            0 4px 8px rgba(226, 165, 74, 0.22)
+        );
+
+    animation: calorieRing 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.calorie-ring-content {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    pointer-events: none;
+}
+
+.calorie-ring-content strong {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+}
+
+.calorie-ring-content span {
+    margin-top: 3px;
+
+    color: var(--lf-muted);
+}
+
+
+/* =========================================================
+   NUTRITION SUMMARY
+   ========================================================= */
+
+.nutrition-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    max-width: 600px;
+
+    margin: 0 auto;
+
+    border-top: 1px solid var(--lf-border);
+    padding-top: 20px;
+}
+
+.nutrition-stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.nutrition-stat + .nutrition-stat {
+    border-left: 1px solid var(--lf-border);
+}
+
+.nutrition-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+}
+
+.protein-icon {
+    background: #fff0e1;
+    color: #c67529;
+}
+
+.carb-icon {
+    background: #edf5e7;
+    color: #638a4b;
+}
+
+.fat-icon {
+    background: #eeeafd;
+    color: #7565a8;
+}
+
+.nutrition-stat div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.nutrition-stat strong {
+    font-weight: 750;
+}
+
+.nutrition-stat div span {
+    color: var(--lf-muted);
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+   ========================================================= */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 17px;
+}
+
+.section-heading h2 {
+    margin: 4px 0 0;
+
+    font-weight: 740;
+    letter-spacing: -0.025em;
+}
+
+.section-heading p {
+    margin: 5px 0 0;
+
+    color: var(--lf-muted);
+}
+
+.text-button {
+    padding: 7px 2px;
+
+    border: 0;
+
+    background: transparent;
+    color: var(--lf-orange-dark);
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-log-section {
+    padding: 22px;
+}
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 15px;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform 150ms ease,
+        border-color 150ms ease,
+        background 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.quick-action:hover {
+    transform: translateY(-2px);
+
+    border-color: #e7d2aa;
+
+    background: #fffdf9;
+
+    box-shadow:
+        0 7px 18px rgba(30, 38, 52, 0.06);
+}
+
+.quick-action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 12px;
+
+    background: var(--lf-orange-light);
+    color: var(--lf-orange-dark);
+
+    font-weight: 800;
+}
+
+.quick-action span:last-child {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.quick-action small {
+    color: var(--lf-muted);
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.food-search-section {
+    padding: 22px;
+}
+
+.food-search {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 6px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 15px;
+
+    background: var(--lf-soft);
+
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.food-search:focus-within {
+    border-color: var(--lf-orange);
+
+    box-shadow:
+        0 0 0 3px rgba(226, 165, 74, 0.12);
+}
+
+.search-icon {
+    padding-left: 10px;
+
+    color: var(--lf-muted);
+
+    line-height: 1;
+}
+
+.food-search input {
+    flex: 1;
+
+    min-width: 0;
+    height: 42px;
+
+    padding: 0 5px;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+    color: var(--lf-text);
+
+    font: inherit;
+}
+
+.food-search input::placeholder {
+    color: #a1a7b1;
+}
+
+.food-search button {
+    min-height: 42px;
+
+    padding: 0 17px;
+
+    border: 0;
+    border-radius: 11px;
+
+    background: var(--lf-text);
+    color: white;
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 150ms ease,
+        background 150ms ease;
+}
+
+.food-search button:hover {
+    transform: translateY(-1px);
+
+    background: #30353d;
+}
+
+
+/* =========================================================
+   SEARCH RESULTS
+   ========================================================= */
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 14px;
+}
+
+.food-result {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border: 1px solid transparent;
+    border-radius: 14px;
+
+    background: transparent;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease;
+}
+
+.food-result:hover {
+    border-color: var(--lf-border);
+
+    background: #fafbfc;
+}
+
+.food-result-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 44px;
+    height: 44px;
+
+    border-radius: 12px;
+
+    background: var(--lf-soft);
+}
+
+.food-result-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    min-width: 0;
+}
+
+.food-result-info strong {
+    font-weight: 700;
+}
+
+.food-result-info span {
+    color: var(--lf-muted);
+}
+
+.food-result-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+
+    margin-left: auto;
+
+    border-radius: 9px;
+
+    background: var(--lf-orange-light);
+    color: var(--lf-orange-dark);
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   MEAL SELECTOR
+   ========================================================= */
+
+.meal-section {
+    padding: 22px;
+}
+
+.meal-time {
+    color: var(--lf-muted);
+    font-weight: 650;
+}
+
+.meal-selector {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 9px;
+}
+
+.meal-option {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 12px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color 150ms ease,
+        background 150ms ease,
+        transform 150ms ease;
+}
+
+.meal-option:hover {
+    transform: translateY(-1px);
+
+    background: #fafafa;
+}
+
+.meal-option.active {
+    border-color: #e7c98f;
+
+    background: var(--lf-orange-light);
+}
+
+.meal-option-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: var(--lf-orange-dark);
+
+    box-shadow:
+        0 2px 5px rgba(30, 38, 52, 0.05);
+}
+
+.meal-option > span:last-child {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.meal-option small {
+    color: var(--lf-muted);
+}
+
+
+/* =========================================================
+   RECENTLY LOGGED
+   ========================================================= */
+
+.recent-section {
+    padding: 22px;
+}
+
+.logged-food-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.logged-food {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 14px;
+
+    transition:
+        background 150ms ease,
+        transform 150ms ease;
+}
+
+.logged-food:hover {
+    transform: translateX(2px);
+
+    background: #fafbfc;
+}
+
+.logged-food-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    background: var(--lf-soft);
+}
+
+.logged-food-details {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+
+    min-width: 0;
+}
+
+.logged-food-details span {
+    color: var(--lf-muted);
+}
+
+.logged-food-calories {
+    display: flex;
+    align-items: baseline;
+
+    gap: 4px;
+
+    margin-left: auto;
+}
+
+.logged-food-calories strong {
+    font-weight: 750;
+}
+
+.logged-food-calories span {
+    color: var(--lf-muted);
+}
+
+.remove-food {
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #a1a7b1;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
+}
+
+.remove-food:hover {
+    background: #fff0f0;
+    color: #c84b4b;
+}
+
+
+/* =========================================================
+   CUSTOM FOOD
+   ========================================================= */
+
+.custom-food-section {
+    padding: 22px;
+}
+
+.custom-food-form {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.nutrition-inputs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.form-field {
+    min-width: 0;
+}
+
+.form-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #626a75;
+
+    font-weight: 650;
+}
+
+.form-field input {
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 10px 12px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 11px;
+
+    background: #ffffff;
+    color: var(--lf-text);
+
+    outline: none;
+
+    font: inherit;
+
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.form-field input:focus {
+    border-color: var(--lf-orange);
+
+    box-shadow:
+        0 0 0 3px rgba(226, 165, 74, 0.12);
+}
+
+.form-field input::placeholder {
+    color: #a5aab2;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    padding-top: 2px;
+}
+
+.form-actions button {
+    min-height: 43px;
+
+    padding: 10px 17px;
+
+    border: 1px solid var(--lf-border);
+    border-radius: 11px;
+
+    background: #ffffff;
+    color: var(--lf-text);
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.form-actions button.primary {
+    border-color: var(--lf-orange);
+
+    background: var(--lf-orange);
+    color: #241b0d;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.log-food-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 12px;
+
+    color: #a1a6ae;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes logFoodEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes calorieRing {
+    from {
+        stroke-dashoffset: 553;
+    }
+
+    to {
+        stroke-dashoffset: 194;
+    }
+}
+
+@keyframes statusPulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.65;
+        transform: scale(0.8);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .log-food-page {
+        padding: 18px;
+    }
+
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .meal-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nutrition-inputs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    .log-food-page {
+        padding: 12px;
+    }
+
+    .log-food-header {
+        margin-bottom: 17px;
+    }
+
+    .log-food-page section {
+        margin-bottom: 12px;
+        border-radius: 16px;
+    }
+
+    .calorie-card,
+    .quick-log-section,
+    .food-search-section,
+    .meal-section,
+    .recent-section,
+    .custom-food-section {
+        padding: 16px;
+    }
+
+    .calorie-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .calorie-status {
+        align-self: flex-start;
+    }
+
+    .calorie-visual {
+        width: 235px;
+        height: 235px;
+
+        margin-top: 3px;
+    }
+
+    .nutrition-summary {
+        margin-top: 3px;
+        padding-top: 15px;
+    }
+
+    .nutrition-stat {
+        gap: 6px;
+    }
+
+    .nutrition-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .meal-selector {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row,
+    .nutrition-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .food-search {
+        flex-wrap: wrap;
+    }
+
+    .food-search input {
+        min-width: 150px;
+    }
+
+    .food-search button {
+        width: 100%;
+    }
+
+    .logged-food-calories {
+        margin-left: auto;
+    }
+
+    .log-food-footer {
+        flex-wrap: wrap;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .log-food-page,
+    .log-food-page * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Personal Hub</title>
+    <link rel="stylesheet" href="./css/dashboard3.css">
+    <script src="./js/web.js" type="text/javascript"></script>
+    <script src="./js/login.js" type="text/javascript"></script>
+    <script src="./js/nav.js" type="text/javascript"></script>
+    <script src="./js/dashboard.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <!-- Mobile Top App Header -->
+    <header class="app-header">
+        <div class="user-greeting">
+            <div class="avatar">J</div>
+            <div>
+                <span class="greeting-sub">DAILY OVERVIEW</span>
+                <h1 class="greeting-title">Hello, Jurgio</h1>
+            </div>
+        </div>
+        <div class="header-actions">
+            <span class="date-badge">Tue, Sep 15</span>
+        </div>
+    </header>
+
+    <!-- Target Shell for Backend Dynamic Loading -->
+    <main class="app-viewport">
+        <div id="main-http-request--json-html-response" class="dashboard-shell">
+
+        </div>
+    </main>
+
+    <!-- Mobile Native Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a onclick="nav_c('DASHBOARD_HOME.HTML');" class="nav-tab active">
+            <span class="tab-icon">📊</span>
+            <span class="tab-label">Dashboard</span>
+        </a>
+        <a onclick="nav_c('DASHBOARD_CALORIES.HTML');" class="nav-tab">
+            <span class="tab-icon">🔥</span>
+            <span class="tab-label">Calories</span>
+        </a>
+        <a onclick="nav_c('DASHBOARD_TODO.HTML');" class="nav-tab">
+            <span class="tab-icon">✅</span>
+            <span class="tab-label">To-Do</span>
+        </a>
+        <a onclick="nav_c('DASHBOARD_RECIPES.HTML');" class="nav-tab">
+            <span class="tab-icon">🥗</span>
+            <span class="tab-label">Recipes</span>
+        </a>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
