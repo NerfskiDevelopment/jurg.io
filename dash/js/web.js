@@ -1,5 +1,5 @@
 //const URI = "http://localhost";
-const URI = "http://api.jurg.io/";
+const URI = "https://api.jurg.io/";
 
 function httpGet(theUrl)
 {
