@@ -8,6 +8,8 @@ function login_clicked(){
 
     //checking result
     if(result == "CONTINUE"){
+        localStorage.setItem("u", username);
+        localStorage.setItem("p", password);
         document.getElementById("login-error").innerHTML = "loading...";
         redirect("dashboard.html");
     }
@@ -30,3 +32,11 @@ function forgotPassword(){
         document.getElementById("login-error").innerHTML = "Your email cannot be null.";
     }
 }
+
+window.addEventListener("load", (event) => {
+    var u = localStorage.getItem("u");
+    var p = localStorage.getItem("p");
+
+    document.getElementById("username_field").value = u;
+    document.getElementById("password_field").value = p;
+});

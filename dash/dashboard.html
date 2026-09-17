@@ -10,10 +10,13 @@
     <meta name="description"
           content="Your personal hub for food, habits, tasks, and everyday life.">
 
-    <title>Personal Hub</title>
+    <title>jurg.io</title>
 
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/pages.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/tasks.css">
+    <link rel="stylesheet" href="./css/objedit.css">
 
     <script src="./js/web.js" type="text/javascript"></script>
     <script src="./js/login.js" type="text/javascript"></script>
@@ -27,7 +30,7 @@
         <!-- Persistent app header -->
         <header class="app-header">
             <a href="/dashboard" class="brand" aria-label="Personal Hub home">
-                <span class="brand-mark">
+                <span class="brand-mark" style="display: none;">
                     <svg viewBox="0 0 32 32" aria-hidden="true">
                         <path d="M16 4.5C9.65 4.5 4.5 9.65 4.5 16S9.65 27.5 16 27.5
                                  27.5 22.35 27.5 16 22.35 4.5 16 4.5Z"
@@ -39,7 +42,7 @@
                     </svg>
                 </span>
 
-                <span class="brand-name">personal<span>.</span></span>
+                <span class="brand-name">jurg<span>.</span>io</span>
             </a>
 
             <div class="header-actions">
@@ -56,7 +59,7 @@
                     <span class="notification-dot"></span>
                 </button>
 
-                <button class="avatar-button" type="button"
+                <button onclick="nav_c('PROFILE.HTML');" class="avatar-button" type="button"
                         aria-label="Open profile">
                     <span>J</span>
                 </button>
@@ -69,14 +72,11 @@
         -->
         <main id="main-http-request--json-html-response"
               class="page-content">
-
-
-
         </main>
 
         <!-- Persistent mobile navigation -->
         <nav class="bottom-nav" aria-label="Main navigation">
-            <a onclick="nav_c('DASHBOARD_HOME.HTML');" class="nav-item active"
+            <a id="DASHBOARD_HOME.HTML" onclick="nav_c('DASHBOARD_HOME.HTML');" class="nav-item active"
                aria-current="page">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"
@@ -86,7 +86,7 @@
                 <span>Home</span>
             </a>
 
-            <a onclick="nav_c('DASHBOARD_CALORIES.HTML');" class="nav-item">
+            <a id="DASHBOARD_LOG_FOOD.HTML" onclick="nav_c('DASHBOARD_LOG_FOOD.HTML');" class="nav-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 3c-2 3-7 6-7 12a7 7 0 0 0 14 0c0-3-2-5-4-7 0 4-2 5-3 5s-2-1-2-3c0-2 1-4 2-7Z"
                           fill="none" stroke="currentColor"
@@ -95,7 +95,7 @@
                 <span>Calories</span>
             </a>
 
-            <a onclick="nav_c('DASHBOARD_TODOS.HTML');" class="nav-item">
+            <a id="TASKS.HTML" onclick="nav_c('TASKS.HTML');" class="nav-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <rect x="4" y="4" width="16" height="16" rx="4"
                           fill="none" stroke="currentColor"
@@ -118,7 +118,7 @@
                 <span>Recipes</span>
             </a>
 
-            <a onclick="nav_c('DATABASE.HTML');" class="nav-item">
+            <a onclick="nav_c('OBJ_EDITOR.HTML');" class="nav-item">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 8h14l-1 12H6L5 8Z"
                           fill="none" stroke="currentColor"

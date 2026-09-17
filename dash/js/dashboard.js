@@ -27,11 +27,11 @@ function nav_c(action){
 
     //dealing with buttons
     if(document.getElementById(action) != undefined){
-        var docs = document.getElementsByName('nav-btn');
+        var docs = document.getElementsByClassName('nav-item');
         for(var i = 0 ; i < docs.length; i ++){
-            docs[i].classList = "";
+            docs[i].classList = "nav-item";
         }
-        document.getElementById(action).classList = "nav-link-active";
+        document.getElementById(action).classList = "nav-item active";
     }
 
     playAnim();
