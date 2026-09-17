@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#f7f7f3">
+    <meta name="description"
+          content="Your personal hub for food, habits, tasks, and everyday life.">
+
+    <title>jurg.io</title>
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/pages.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/tasks.css">
+    <link rel="stylesheet" href="./css/objedit.css">
+    <link rel="stylesheet" href="./css/ctrl_center.css">
+
+    <script src="./js/web.js" type="text/javascript"></script>
+    <script src="./js/login.js" type="text/javascript"></script>
+    <script src="./js/nav.js" type="text/javascript"></script>
+    <script src="./js/dashboard.js" type="text/javascript"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <!-- Persistent app header -->
+        <header class="app-header">
+            <a href="" class="brand" aria-label="Personal Hub home">
+                <div>
+              <img src="./images/logo.png" style="width: 20px;">
+            </div>
+
+                <span class="brand-name">jurg<span>.</span>io</span>
+            </a>
+
+            <div class="header-actions">
+                <button style="display:none;" class="icon-button" type="button"
+                        aria-label="Notifications">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+                              fill="none" stroke="currentColor"
+                              stroke-width="1.7" stroke-linecap="round"/>
+                        <path d="M10 21h4" fill="none"
+                              stroke="currentColor" stroke-width="1.7"
+                              stroke-linecap="round"/>
+                    </svg>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <button onclick="nav_c('PROFILE.HTML');" class="avatar-button" type="button"
+                        aria-label="Open profile">
+                    <span>J</span>
+                </button>
+            </div>
+        </header>
+
+        <!--
+            Server-rendered page content goes here.
+            Replace the inner HTML of this element on each page request.
+        -->
+        <main id="main-http-request--json-html-response"
+              class="page-content">
+        </main>
+
+        <!-- Persistent mobile navigation -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a id="DASHBOARD_HOME.HTML" onclick="nav_c('DASHBOARD_HOME.HTML');" class="nav-item active"
+               aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linejoin="round"/>
+                </svg>
+                <span>Home</span>
+            </a>
+
+            <a id="DASHBOARD_LOG_FOOD.HTML" onclick="nav_c('DASHBOARD_LOG_FOOD.HTML');" class="nav-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3c-2 3-7 6-7 12a7 7 0 0 0 14 0c0-3-2-5-4-7 0 4-2 5-3 5s-2-1-2-3c0-2 1-4 2-7Z"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linejoin="round"/>
+                </svg>
+                <span>Calories</span>
+            </a>
+
+            <a id="TASKS.HTML" onclick="nav_c('TASKS.HTML');" class="nav-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="4" y="4" width="16" height="16" rx="4"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <path d="m8 12 2.5 2.5L16 9"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+                <span>Tasks</span>
+            </a>
+
+            <a onclick="nav_c('DASHBOARD_RECEPIES.HTML');" class="nav-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h16v15H4zM8 5V3m8 2V3M8 10h8m-8 4h5"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+                <span>Recipes</span>
+            </a>
+
+            <a onclick="nav_c('OBJ_EDITOR.HTML');" class="nav-item">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 8h14l-1 12H6L5 8Z"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linejoin="round"/>
+                    <path d="M9 9V6a3 3 0 0 1 6 0v3"
+                          fill="none" stroke="currentColor"
+                          stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+                <span>Lists</span>
+            </a>
+        </nav>
+
+    </div>
+</body>
+</html>
