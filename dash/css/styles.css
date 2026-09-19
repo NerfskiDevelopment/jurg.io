@@ -60,6 +60,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+
 * {
     box-sizing: border-box;
 }
@@ -240,7 +241,7 @@ button {
     margin: 0 auto;
     padding: 28px 20px 18px;
 
-    animation: page-enter 450ms cubic-bezier(.2, .7, .2, 1) both;
+    /*animation: page-enter 450ms cubic-bezier(.2, .7, .2, 1) both;*/
 }
 
 /* ==========================================

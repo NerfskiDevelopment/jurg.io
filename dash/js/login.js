@@ -1,21 +1,23 @@
 var localStorage = window.localStorage;
 
 //logs into the users account
-function login(username, password){
-    var response = JSON.parse(httpPost("/v1/api/oauthv2", 'username=' + username + '&password=' + password + '&tokenId=2WtmuzuAr1d5jT7sxRA9O4vm1gxsE848loMnroDLau97PTqucgYL19CQhRqF9Kim'));
+function login(username, password, callback){
+    httpPost("/v1/api/oauthv2", 'username=' + username + '&password=' + password + '&tokenId=2WtmuzuAr1d5jT7sxRA9O4vm1gxsE848loMnroDLau97PTqucgYL19CQhRqF9Kim', function(data){
+        var response = JSON.parse(data);
 
-    //checking for errors response["CODE"] != 200
-    if(response["AuthToken"] == null){
-        return response["ERROR"];
-    }
-    else{
-        //saving the token
-        localStorage.setItem("token", response["AuthToken"]["TOKEN"]);
-        localStorage.setItem("username", response["Username"]);
-        localStorage.setItem("permissions", response["Permissions"]);
+        //checking for errors response["CODE"] != 200
+        if(response["AuthToken"] == null){
+            callback(response["ERROR"]);
+        }
+        else{
+            //saving the token
+            localStorage.setItem("token", response["AuthToken"]["TOKEN"]);
+            localStorage.setItem("username", response["Username"]);
+            localStorage.setItem("permissions", response["Permissions"]);
 
-        return "CONTINUE";
-    }
+            callback( "CONTINUE");
+        }
+    });
 }
 
 function forgotlogin(username){
@@ -36,15 +38,18 @@ function logout(){
 }
 
 //checks wether the token is valid or not
-function checkLoginToken(token){
-    var response = JSON.parse(httpPostWithAuth("/v1/api/token", token));
+function checkLoginToken(token, callback){
+    httpPostWithAuth("/v1/api/token", token, "", function(data){
+        var response = JSON.parse(data);
+        console.log(response);
 
-    if(response["ERROR"] == null){
-        return [true, response['MESSAGE']];
-    }
-    else{
-        return [false, 0];
-    }
+        if(response["ERROR"] == null){
+            callback([true, response['MESSAGE']]);
+        }
+        else{
+            callback([false, 0]);
+        }
+    });
 }
 
 //loads the login cookie and checks wether 
@@ -53,19 +58,32 @@ function loadLoginCookie(){
 
     //checking if the cookie is valid
     if(cookie != null || cookie != ""){
-        var response = checkLoginToken(cookie);
+        checkLoginToken(cookie, function(response){
+            //OK
+            if(response[0] == true){
+                //redirect("dashboard.html");
+                localStorage.removeItem("authRedirect");
+                localStorage.setItem("permissions", response[1]);
+            }
+            //NOT OK
+            else{
+                //get query params and post data
+                const queryString = window.location;
+                //const urlParams = new URLSearchParams(queryString);
+                //const q = urlParams.get('q');
 
-        //OK
-        if(response[0] == true){
-            //redirect("dashboard.html");
-            localStorage.setItem("permissions", response[1]);
-        }
-        //NOT OK
-        else{
-            redirect("index.html");
-        }
-    }
-    else{
-        //
+                localStorage.setItem("authRedirect", queryString.href);
+
+                redirect("index.html");
+
+                if(getDebugMode()){
+                    redirect("index.html?debug_mode=true");
+                }
+                else{
+                    redirect("index.html");
+                }
+            }
+        });
+
     }
 }
