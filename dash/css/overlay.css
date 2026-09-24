@@ -28,7 +28,7 @@
     display: flex;
     flex-direction: column;
 
-    width: min(1000px, 100%);
+    width: min(800px, 100%);
     max-height: calc(100vh - 60px);
 
     overflow: hidden;
@@ -86,4 +86,105 @@
         padding: 18px;
     }
 
+}
+
+
+/* =========================================================
+   WHEN OVERLAY IS OPEN
+========================================================= */
+
+html:has(body.overlay-open),
+body.overlay-open {
+    overflow: hidden !important;
+    height: 100%;
+}
+
+/*
+   Important for your dashboard because the main app
+   content can scroll independently of <body>.
+*/
+body.overlay-open #scroll-section {
+    overflow: hidden !important;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.page-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    overflow: hidden;
+}
+
+
+.page-overlay-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(20, 24, 19, 0.35);
+
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+}
+
+
+/* =========================================================
+   OVERLAY WINDOW
+========================================================= */
+
+.page-overlay-content {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    width: min(1050px, 95vw);
+    height: min(900px, 94vh);
+
+    overflow: hidden;
+
+    border: 1px solid #dde3da;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   SCROLLABLE "BODY"
+========================================================= */
+
+.page-overlay-body {
+    flex: 1 1 auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: auto;
+
+    overscroll-behavior: contain;
+
+    padding: 24px;
+
+    /*
+       Gives the injected page a slightly more
+       zoomed-out feeling.
+    */
+    zoom: 0.92;
 }

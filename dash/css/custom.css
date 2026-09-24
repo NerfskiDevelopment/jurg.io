@@ -6,6 +6,14 @@
   overflow:hidden;
 }
 
+.fadeInSlow{
+  animation: fadeUp_a .65s ease forwards;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateX(20px);
+  overflow:hidden;
+}
+
 @keyframes fadeUp_a {
   to { opacity: 1; transform: translateX(0); filter: blur(0px); }
 }
