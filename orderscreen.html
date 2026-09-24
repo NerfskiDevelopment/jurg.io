@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>trackle — jurg.io</title>
+    <title>Order screen — jurg.io</title>
 
     <meta
         name="description"
-        content="Trackle is a simple shipping application built with raw html, css and javascript."
+        content="The Order screen is a professional, real-time order management board that allows employees to view status updates in the warehouse."
     >
 
     <link rel="stylesheet" href="css/style.css">
@@ -77,12 +77,13 @@
                         </span>
 
                         <h1>
-                            Trackle
+                            Order Screen
                         </h1>
 
                         <p class="project-lead">
-                            Trackle is a simple shipping application built with raw html, css and javascript.
-                        </p>
+The order screen is a .NET Windows Application, that serves as an order management board for top customers.
+                                It allows employees to view the number of unpacked orders and will update in real-time.
+                                            </p>
 
                     </div>
 
@@ -135,7 +136,7 @@
 
                 <div class="project-cover-placeholder">
 
-                    <img src="./images/trackle.png" alt="">
+                    <img src="./images/orderscreen.jpg" alt="">
 
                 </div>
 
@@ -162,43 +163,18 @@
                 <div class="project-copy">
 
                     <p class="project-copy-lead">
-                        Trackle was meant to solve a problem, but it was also a learning experience.
-                        I wanted to learn more about how to build a web application from scratch, and this project gave me the opportunity to do just that.
+                        The Order Screen or the "Order Board" is a .NET windows Application, that runs on a large TV in the warehouse.
                     </p>
 
                     <p>
-                        My goal was to create a simple shipping application that would integrate with our existing MIS, that way orders would flow straight to the shipping department without excessive manual input.
-                        I wanted to make it as simple as possible for the shipping department to use, while also making it easy for me to maintain and update.
+                        The goal was to improve the efficiency of the warehouse by providing a real-time order management board that allows employees to view the number of unpacked orders and will update in real-time.
                     </p>
 
                     <p>
-                        Before trackle, the shipping department was using a pen and paper system to deliver orders, which was time consuming and prone to errors.
+                        Before the Order Screen, order information was scattered across multiple systems, making it difficult for employees to get a comprehensive view of the warehouse's status. The Order Screen solved this problem by providing a centralized, real-time view of all orders.
                     </p>
 
                 </div>
-
-            </div>
-        </section>
-
-
-        <!-- =================================================
-             SCREENSHOT / IMAGE
-        ================================================== -->
-
-        <section class="project-media-section">
-            <div class="container">
-
-                <div class="project-media">
-
-                    <img
-                            src="./images/trackle2.png"
-                            alt="">
-
-                </div>
-
-                <p class="project-caption">
-                    The creation delivery form, which has a bunch of fields that are automatically filled in from the MIS, and a few fields that can be filled in by the user.
-                </p>
 
             </div>
         </section>
@@ -238,12 +214,11 @@
                         <div class="project-feature-content">
 
                             <h3>
-                                Integrating with the MIS
+                                APIs
                             </h3>
 
                             <p>
-                                The entire goal of this project was to make the shipping department's job easier, and that meant integrating with our existing MIS.
-                                The system we were using at the time did not have an API, which meant I had to figure out how to pull data from the MIS and display it in a way that was useful for the shipping department.
+                                Since orders are scattered across multiple systems, I had to integrate with multiple APIs to get the data I needed. This was a challenge, as some of the APIs were not well documented and required a lot of trial and error to get working. 
                             </p>
 
                         </div>
@@ -262,13 +237,11 @@
                         <div class="project-feature-content">
 
                             <h3>
-                                Reaching the customer
+                                Interface
                             </h3>
 
                             <p>
-                                Another goal for this project was to make it easier for the shipping department to reach the customer,
-                                which meant integrating with our customer database / records system.
-                                This allowed us to send an "Delivery Confirmation" email to the customer when their order was shipped, which was a huge improvement over the previous system of calling the customer or leaving a voicemail.
+                                Since this TV needed to be viewed from a distance, I had to design an interface that was easy to read and understand. I used large fonts and high contrast colors to make the information easy to read from across the room.
                             </p>
 
                         </div>
@@ -287,13 +260,11 @@
                         <div class="project-feature-content">
 
                             <h3>
-                                Making Life Easier
+                                Real-Time Updates
                             </h3>
 
                             <p>
-                                The shipping department was using a pen and paper system to deliver orders, which was time consuming and prone to errors.
-                                Trackle allowed the shipping department to quickly and easily create deliveries, which saved them time and reduced errors.
-                                Now, with the use of the mobile app, shippers can quickly create deliveries from their workstation, or on the go, without having to go back to their desk to create a delivery.
+                                The Order Screen needed to update in real-time, so I had to implement a system that would push updates to the screen as they happened. I used timers to check for updates every 5 seconds, and if there were any changes, the screen would update automatically without the need for a manual refresh.
                             </p>
 
                         </div>
@@ -305,68 +276,6 @@
             </div>
         </section>
 
-
-        <!-- =================================================
-             TWO IMAGE GALLERY
-        ================================================== -->
-
-        <section class="project-media-section">
-                            <div class="container">
-
-                    <div class="project-gallery">
-
-                        <div class="project-media-placeholder">
-                                <img src="./images/trackle/Dashboard_View.png" alt="">
-                        </div>
-                        <div class="project-media-placeholder">
-                                <img src="./images/trackle/Delivery_View.png" alt="">
-                        </div>
-                        <div class="project-media-placeholder">
-                                <img src="./images/trackle/Create_Delivery_View.png" alt="">
-                        </div>
-                        <div class="project-media-placeholder">
-                                <img src="./images/trackle/Pickup_Details_View.png" alt="">
-                        </div>
-                    </div>
-                </div>
-        </section>
-
-
-        <!-- =================================================
-             TAKEAWAYS
-        ================================================== -->
-
-        <section class="project-section">
-            <div class="container project-content-grid">
-
-                <div class="project-section-heading">
-
-                    <span class="eyebrow">
-                        Takeaways
-                    </span>
-
-                    <h2>
-                        What I learned.
-                    </h2>
-
-                </div>
-
-
-                <div class="project-copy">
-
-                    <p class="project-copy-lead">
-                        The entire proccess of building this project was a learning experience, and I learned a lot about how to build a web application from scratch.
-                    </p>
-
-                    <p>
-                        I have always found a lot of value in building things from scratch, and this project was no exception.
-                        It helped me to understand how web applications work, and how to build them in a way that is maintainable and scalable.
-                    </p>
-
-                </div>
-
-            </div>
-        </section>
 
     </main>
 
