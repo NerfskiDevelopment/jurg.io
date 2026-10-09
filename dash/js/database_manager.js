@@ -26,7 +26,7 @@ window.initDatabaseManager = function () {
         try {
             const params = new URLSearchParams({ table: root.dataset.table, mode, key: key || '' });
             const response = await fetch(getServerURL() + '/V1/website/html/DATABASE_EDITOR.HTML?' + params, {
-                credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: controller.signal
+                credentials: apiCredentials(), headers: apiAuthHeaders(), signal: controller.signal
             });
             if (handleAccessChange(response)) return;
             const html = await response.text();
@@ -89,7 +89,7 @@ window.initDatabaseManager = function () {
                 form.querySelectorAll('[aria-invalid]').forEach(element => element.removeAttribute('aria-invalid'));
                 try {
                     const response = await fetch(getServerURL() + '/V1/website/action/DATABASE_SAVE', {
-                        method: 'POST', credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded' },
+                        method: 'POST', credentials: apiCredentials(), headers: { ...apiAuthHeaders(), 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams(new FormData(form)).toString()
                     });
                     if (response.status === 401 || response.status === 403) {
@@ -148,7 +148,7 @@ window.initDatabaseManager = function () {
         const timeout = setTimeout(() => controller.abort(), 15000);
         try {
             const response = await fetch(getServerURL() + '/V1/website/html/DATABASE.HTML?' + params, {
-                credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: controller.signal
+                credentials: apiCredentials(), headers: apiAuthHeaders(), signal: controller.signal
             });
             if (handleAccessChange(response)) return;
             const html = await response.text();
@@ -185,3 +185,4 @@ window.initDatabaseManager = function () {
         }
     });
 };
+

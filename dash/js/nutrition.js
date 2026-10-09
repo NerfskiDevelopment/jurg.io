@@ -6,7 +6,7 @@ window.initNutrition = function () {
     const dateInput = root.querySelector('[data-nutrition-date]');
     const base = getServerURL().replace(/\/$/, '') + '/V1/website/';
     let loading = false;
-    const headers = () => ({ 'X-Requested-With': 'XMLHttpRequest' });
+    const headers = () => apiAuthHeaders();
     const showError = message => { if (root.isConnected) { error.textContent = message; error.hidden = false; } };
     function access(response) {
         if (response.status === 401) {
@@ -19,7 +19,7 @@ window.initNutrition = function () {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
         try {
-            const response = await fetch(base + path, { credentials: 'include', headers: headers(), signal: controller.signal });
+            const response = await fetch(base + path, { credentials: apiCredentials(), headers: headers(), signal: controller.signal });
             access(response);
             if (!response.ok) throw new Error(response.status === 404 ? 'This entry is no longer available. Refresh the page.' : 'Unable to load. Please try again.');
             return await response.text();
@@ -40,7 +40,7 @@ window.initNutrition = function () {
     async function save(fields) {
         // Do not abort a write: the server may already have persisted it.
         const response = await fetch(base + 'action/NUTRITION_SAVE', {
-            method: 'POST', credentials: 'include', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' },
+            method: 'POST', credentials: apiCredentials(), headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' },
             body: fields.toString()
         });
         access(response);
@@ -155,3 +155,4 @@ window.initNutrition = function () {
     const localDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     if (root.dataset.autoDate === 'true' && root.dataset.date !== localDate) reload(localDate);
 };
+

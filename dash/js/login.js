@@ -1,4 +1,4 @@
-// Authentication is carried by an HttpOnly API cookie, never browser storage.
+// Cookie mode is prepared for the future API; the current API uses a tab session.
 window.loginState = { username: '', permissions: 0 };
 function clearLegacyLoginStorage() {
     try { ['token', 'p', 'u', 'username', 'permissions', 'authRedirect'].forEach(key => window.localStorage.removeItem(key)); } catch { }
@@ -14,8 +14,8 @@ async function authRequest(path, fields = null) {
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
         const response = await fetch(getServerURL() + path, {
-            method: 'POST', credentials: 'include', signal: controller.signal,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-Requested-With': 'XMLHttpRequest' },
+            method: 'POST', credentials: apiCredentials(), signal: controller.signal,
+            headers: { ...apiAuthHeaders(), 'Content-Type': 'application/x-www-form-urlencoded' },
             body: fields ? new URLSearchParams(fields).toString() : ''
         });
         let data;
@@ -25,10 +25,12 @@ async function authRequest(path, fields = null) {
 }
 
 async function restoreLoginSession() {
+    if (!cookieAuthEnabled() && !getSessionBearer()) return { status: 'invalid' };
     try {
         const { response, data } = await authRequest('/v1/api/token');
         if (response.status === 401 || (response.ok && data.ERROR === 'Invalid token')) {
             window.loginState = { username: '', permissions: 0 };
+            setSessionBearer('');
             return { status: 'invalid' };
         }
         if (!response.ok || data.ERROR) throw new Error('Unable to check your login. Please try again.');
@@ -38,7 +40,7 @@ async function restoreLoginSession() {
         clearLegacyLoginStorage();
         return { status: 'valid' };
     } catch (error) {
-        return { status: 'unavailable', message: error.name === 'AbortError' ? 'Checking your login took too long. Please retry.' : 'Unable to reach the server. Your session has not been cleared. Please retry.' };
+        return { status: 'unavailable', message: error.name === 'AbortError' ? 'Checking your login took too long. Please retry.' : error instanceof TypeError ? 'The API could not be reached or the browser blocked its connection. Your session has not been cleared. Please retry.' : error.message };
     }
 }
 
@@ -50,6 +52,23 @@ async function login(username, password, callback) {
             tokenId: '2WtmuzuAr1d5jT7sxRA9O4vm1gxsE848loMnroDLau97PTqucgYL19CQhRqF9Kim'
         });
         if (!response.ok || data.ERROR) { callback(data.ERROR || 'Unable to sign in. Please try again.'); return; }
+        if (!cookieAuthEnabled()) {
+            const token = data.AuthToken?.TOKEN;
+            if (!token) { callback('The server did not return a login session. Please try again.'); return; }
+            setSessionBearer(token);
+            window.loginState = { username: data.Username || '', permissions: Number(data.Permissions) || 0 };
+            clearLegacyLoginStorage();
+            // Storage may be blocked: do not redirect and silently lose the new login.
+            try {
+                if (sessionStorage.getItem('loginBearer') !== token) throw new Error('Session unavailable');
+            } catch {
+                setSessionBearer('');
+                callback('Your browser is blocking site storage. Allow site data or use a regular browser tab to sign in.');
+                return;
+            }
+            callback('CONTINUE');
+            return;
+        }
         // Verify the cookie actually arrived, including when browser policy blocks it.
         const restored = await restoreLoginSession();
         if (restored.status !== 'valid') {
@@ -58,7 +77,7 @@ async function login(username, password, callback) {
         }
         window.loginState.username = data.Username || window.loginState.username;
         callback('CONTINUE');
-    } catch { callback('Unable to reach the server. Please try again.'); }
+    } catch (error) { callback(error.name === 'AbortError' ? 'Signing in took too long. Please retry.' : error instanceof TypeError ? 'The API could not be reached or the browser blocked its connection. Please retry.' : error.message); }
 }
 
 async function forgotlogin(username) {
@@ -67,6 +86,13 @@ async function forgotlogin(username) {
 }
 
 async function logout() {
+    if (!cookieAuthEnabled()) {
+        setSessionBearer('');
+        window.loginState = { username: '', permissions: 0 };
+        clearLegacyLoginStorage();
+        redirect(loginRedirectURL());
+        return;
+    }
     try {
         const { response, data } = await authRequest('/v1/api/logout');
         if (!response.ok && response.status !== 401) throw new Error('Logout failed');

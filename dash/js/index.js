@@ -29,6 +29,11 @@ async function forgotPassword() {
 }
 function getDebugMode() { return new URLSearchParams(window.location.search).has('debug_mode'); }
 window.addEventListener('load', async () => {
+    const rememberRow = document.querySelector('.remember-row');
+    if (rememberRow) {
+        rememberRow.hidden = !cookieAuthEnabled();
+        rememberRow.style.display = cookieAuthEnabled() ? '' : 'none';
+    }
     const result = await restoreLoginSession();
     // Do not interrupt a user who has started entering their credentials.
     if (result.status === 'valid' && !loginBusy && !document.getElementById('passwordInput').value && !document.getElementById('username_field').value) redirect(dashboardURL());

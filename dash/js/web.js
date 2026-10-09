@@ -1,12 +1,32 @@
 const URI_PROD = "https://api.jurg.io";
 const URI_DEBUG = "http://localhost";
 
+// Enable only after deploying cookie authentication and credentialed CORS on the API.
+window.COOKIE_AUTH_ENABLED ??= false;
+window.sessionBearer = '';
+function cookieAuthEnabled() { return window.COOKIE_AUTH_ENABLED === true; }
+function getSessionBearer() {
+    if (cookieAuthEnabled()) return '';
+    try { return window.sessionBearer || sessionStorage.getItem('loginBearer') || ''; } catch { return window.sessionBearer; }
+}
+function setSessionBearer(token) {
+    window.sessionBearer = token || '';
+    try { if (token) sessionStorage.setItem('loginBearer', token); else sessionStorage.removeItem('loginBearer'); } catch { }
+}
+function apiCredentials() { return cookieAuthEnabled() ? 'include' : 'omit'; }
+function apiAuthHeaders() {
+    const headers = { 'X-Requested-With': 'XMLHttpRequest' };
+    const bearer = getSessionBearer();
+    if (bearer) headers.Authorization = bearer;
+    return headers;
+}
+
 function httpGet(theUrl, callback = null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
 
-    xmlHttp.withCredentials = true;
+    xmlHttp.withCredentials = cookieAuthEnabled();
     xmlHttp.timeout = 15000;
     xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -43,9 +63,9 @@ function httpGetWithAuth(theUrl, bearer, callback = null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
-    // The browser supplies the HttpOnly session cookie.
+    if (!cookieAuthEnabled() && (bearer || getSessionBearer())) xmlHttp.setRequestHeader('Authorization', bearer || getSessionBearer());
 
-    xmlHttp.withCredentials = true;
+    xmlHttp.withCredentials = cookieAuthEnabled();
     xmlHttp.timeout = 15000;
     xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -86,7 +106,7 @@ function httpPost(theUrl, params = '', callback = null)
     xmlHttp.open( "POST", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    xmlHttp.withCredentials = true;
+    xmlHttp.withCredentials = cookieAuthEnabled();
     xmlHttp.timeout = 15000;
     xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
@@ -123,10 +143,10 @@ function httpPostWithAuth(theUrl, bearer, params = '', callback = null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
-    // The browser supplies the HttpOnly session cookie.
+    if (!cookieAuthEnabled() && (bearer || getSessionBearer())) xmlHttp.setRequestHeader('Authorization', bearer || getSessionBearer());
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-    xmlHttp.withCredentials = true;
+    xmlHttp.withCredentials = cookieAuthEnabled();
     xmlHttp.timeout = 15000;
     xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 

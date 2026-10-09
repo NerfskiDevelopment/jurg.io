@@ -27,7 +27,7 @@ let renderRevision = 0;
 const dom = {
     content: () => document.getElementById('main-http-request--json-html-response'),
     navButtons: () => document.getElementsByName('nav-btn'),
-    token: () => '',
+    token: () => typeof getSessionBearer === 'function' ? getSessionBearer() : '',
     permissions: () => typeof getLoginPermissions === 'function' ? getLoginPermissions() : 0
 };
 

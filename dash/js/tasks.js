@@ -21,7 +21,7 @@ window.initTaskPage = function () {
         root.querySelectorAll('button').forEach(button => button.disabled = value);
         rows.forEach(row => row.querySelector('[data-task-complete]').disabled = value || row.dataset.hidden === 'true');
     }
-    const headers = () => ({ 'X-Requested-With': 'XMLHttpRequest' });
+    const headers = () => apiAuthHeaders();
     function access(response) {
         if (response.status === 401) {
             window.location.href = 'index.html' + (getDebugMode() ? '?debug_mode=true' : '');
@@ -33,7 +33,7 @@ window.initTaskPage = function () {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 15000);
         try {
-            const response = await fetch(base + path, { credentials: 'include', headers: headers(), signal: controller.signal });
+            const response = await fetch(base + path, { credentials: apiCredentials(), headers: headers(), signal: controller.signal });
             access(response);
             if (!response.ok) throw new Error(response.status === 404 ? 'This record is unavailable. Refresh the page.' : 'Unable to load. Please try again.');
             return await response.text();
@@ -58,7 +58,7 @@ window.initTaskPage = function () {
     async function save(fields) {
         fields.set('now', now());
         const response = await fetch(base + 'action/TASK_SAVE', {
-            method: 'POST', credentials: 'include', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' }, body: fields.toString()
+            method: 'POST', credentials: apiCredentials(), headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' }, body: fields.toString()
         });
         access(response);
         const result = await response.json();
@@ -223,3 +223,4 @@ window.initTaskPage = function () {
     if (root.dataset.autoDate === 'true' && root.dataset.date !== now().slice(0,10)) { reload(root.dataset.openEditor); return; }
     if (root.dataset.openEditor) openEditor('create',root.dataset.openEditor,'',root.querySelector('[data-task-action="create"]'));
 };
+
