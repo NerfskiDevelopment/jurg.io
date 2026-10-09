@@ -1,4 +1,4 @@
-const URI_PROD = "https://api.jurg.io/";
+const URI_PROD = "https://api.jurg.io";
 const URI_DEBUG = "http://localhost";
 
 function httpGet(theUrl, callback = null)
