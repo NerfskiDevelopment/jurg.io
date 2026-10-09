@@ -13,9 +13,12 @@ async function authRequest(path, fields = null) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
     try {
+        const headers = { ...apiAuthHeaders(), 'Content-Type': 'application/x-www-form-urlencoded' };
+        // Public login does not need an old bearer or a CORS preflight in legacy mode.
+        if (path === '/v1/api/oauthv2' || path === '/v2/api/forgotv2') delete headers.Authorization;
         const response = await fetch(getServerURL() + path, {
             method: 'POST', credentials: apiCredentials(), signal: controller.signal,
-            headers: { ...apiAuthHeaders(), 'Content-Type': 'application/x-www-form-urlencoded' },
+            headers,
             body: fields ? new URLSearchParams(fields).toString() : ''
         });
         let data;
