@@ -1,0 +1,91 @@
+.bottom-nav.has-database-link { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.database-manager { --db-border: #e5e8df; --db-muted: #72776b; color: #252821; min-width: 0; }
+.database-manager *, .database-manager *::before, .database-manager *::after { box-sizing: border-box; }
+.database-manager .db-heading, .database-manager .db-table-heading, .database-manager .db-details header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.database-manager .db-heading { margin-bottom: 24px; }
+.database-manager h1 { margin: 5px 0; font-size: clamp(28px, 4vw, 38px); letter-spacing: -.04em; }
+.database-manager h2 { margin: 0; font-size: 18px; }
+.database-manager p { color: var(--db-muted); margin: 8px 0; }
+.database-manager .db-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: #a4732c; }
+.database-manager .db-workspace { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 20px; align-items: start; }
+.database-manager .db-panel { background: #fff; border: 1px solid var(--db-border); border-radius: 18px; overflow: hidden; }
+.database-manager .db-tables { padding: 16px; }
+.database-manager .db-tables h2 { margin: 0 0 15px; }
+.database-manager .db-table { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 12px 10px; border: 0; border-radius: 10px; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+.database-manager .db-table strong { font-size: 11px; color: var(--db-muted); }
+.database-manager .db-table.is-active { background: #f5eddd; color: #805519; }
+.database-manager .db-main { min-width: 0; }
+.database-manager .db-badge { display: inline-block; padding: 6px 10px; border-radius: 20px; background: #f1f3ed; color: #5e6754; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.database-manager .db-search { display: flex; gap: 8px; margin: 16px 0; }
+.database-manager .db-search input { width: 100%; min-width: 0; border: 1px solid var(--db-border); border-radius: 10px; padding: 12px; background: #fff; color: inherit; font: inherit; }
+.database-manager .db-button { border: 1px solid var(--db-border); border-radius: 10px; padding: 10px 14px; background: #fff; color: inherit; font: inherit; cursor: pointer; }
+.database-manager .db-button:disabled { opacity: .4; cursor: default; }
+.database-manager button:hover:not(:disabled) { background: #f5f6f0; }
+.database-manager button:focus-visible, .database-manager input:focus-visible, .database-manager pre:focus-visible { outline: 2px solid #b77920; outline-offset: 2px; }
+.database-manager .db-browser { display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.2fr); gap: 16px; align-items: start; }
+.database-manager .db-records { max-height: 520px; overflow: auto; }
+.database-manager .db-record { display: block; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--db-border); padding: 15px; color: inherit; background: #fff; font: inherit; cursor: pointer; }
+.database-manager .db-record strong, .database-manager .db-record span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.database-manager .db-record strong { font-size: 13px; }
+.database-manager .db-record span { margin-top: 5px; color: var(--db-muted); font-size: 12px; }
+.database-manager .db-record.is-active { background: #f5eddd; box-shadow: inset 3px 0 #b77920; }
+.database-manager .db-pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px; gap: 8px; font-size: 12px; }
+.database-manager .db-details { padding: 18px; min-width: 0; }
+.database-manager .db-detail-key { margin: 20px 0 12px; }
+.database-manager .db-detail-key span { display: block; font-size: 11px; color: var(--db-muted); margin-bottom: 5px; }
+.database-manager .db-detail-key strong { font-size: 13px; overflow-wrap: anywhere; }
+.database-manager .db-json { margin: 0; padding: 15px; border-radius: 12px; background: #f7f8f4; font: 12px/1.7 Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 520px; overflow: auto; color: #30392a; }
+.database-manager .db-empty { padding: 30px 15px; text-align: center; }
+.database-manager .db-empty p, .database-manager .db-note { font-size: 12px; line-height: 1.6; }
+.database-manager .db-note { margin-top: 15px; }
+.database-manager .db-error { color: #a2352d; }
+.database-manager[aria-busy="true"] .db-workspace { opacity: .65; }
+.database-manager .db-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.database-manager .db-object-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.database-manager .db-details .db-object-actions { margin-top: 14px; }
+body.db-editor-open { overflow: hidden; }
+.db-editor-dialog { width: min(680px, calc(100vw - 40px)); max-width: none; max-height: calc(100dvh - 40px); padding: 0; border: 1px solid #e5e8df; border-radius: 20px; background: #fff; color: #252821; box-shadow: 0 24px 80px #0003; overflow: hidden; }
+.db-editor-dialog::backdrop { background: #14181370; backdrop-filter: blur(4px); }
+.db-editor-dialog * { box-sizing: border-box; }
+.db-editor-dialog .db-object-form { display: flex; flex-direction: column; max-height: calc(100dvh - 40px); margin: 0; }
+.db-editor-header { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 20px 24px; border-bottom: 1px solid #e5e8df; flex-shrink: 0; }
+.db-editor-dialog h2 { margin: 4px 0 0; font-size: 24px; }
+.db-editor-dialog .db-eyebrow { font-size: 11px; letter-spacing: .12em; color: #a4732c; font-weight: 700; }
+.db-editor-dialog button { min-height: 44px; padding: 10px 16px; border: 1px solid #dde1d6; border-radius: 10px; background: #fff; color: inherit; font: inherit; cursor: pointer; }
+.db-editor-dialog .db-editor-close { font-size: 24px; min-width: 44px; padding: 4px 10px; }
+.db-editor-body { padding: 20px 24px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.db-editor-body > p:first-child { margin: 0 0 20px; color: #72776b; font-size: 13px; line-height: 1.6; }
+.db-editor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.db-editor-field { min-width: 0; }
+.db-field-wide { grid-column: 1 / -1; }
+.db-editor-field label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 8px; }
+.db-editor-field input:not([type="checkbox"]), .db-editor-field textarea, .db-editor-field select { display: block; width: 100%; min-height: 44px; border: 1px solid #dde1d6; border-radius: 10px; padding: 10px; font: inherit; font-size: 16px; background: #fafbf8; color: inherit; }
+.db-editor-field textarea { resize: vertical; }
+.db-editor-field input[type="checkbox"] { width: 22px; height: 22px; accent-color: #a4732c; }
+.db-editor-dialog [aria-invalid="true"] { border-color: #a2352d !important; }
+.db-editor-dialog .db-editor-error { color: #a2352d; font-size: 13px; line-height: 1.5; margin-top: 5px; }
+.db-editor-footer { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 24px; border-top: 1px solid #e5e8df; background: #fff; flex-shrink: 0; }
+.db-editor-dialog .db-editor-save { background: #a4732c; color: white; border-color: #a4732c; }
+.db-editor-dialog button:disabled { opacity: .55; cursor: default; }
+.db-editor-dialog :focus-visible { outline: 2px solid #a4732c; outline-offset: 2px; }
+@media (max-width: 650px) {
+    .db-editor-dialog { width: 100%; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+    .db-editor-dialog .db-object-form { height: 100%; max-height: 100dvh; }
+    .db-editor-header { padding: max(16px, env(safe-area-inset-top)) 16px 16px; }
+    .db-editor-body { padding: 20px 16px; flex: 1; }
+    .db-editor-fields { grid-template-columns: 1fr; }
+    .db-editor-footer { padding: 14px 16px max(14px, env(safe-area-inset-bottom)); }
+    .db-editor-footer button { flex: 1; }
+}
+@media (max-width: 900px) {
+    .database-manager .db-workspace { grid-template-columns: 1fr; }
+    .database-manager .db-tables { display: flex; gap: 6px; overflow-x: auto; }
+    .database-manager .db-tables h2 { display: none; }
+    .database-manager .db-table { width: auto; flex: 0 0 auto; }
+}
+@media (max-width: 600px) {
+    .database-manager .db-browser { grid-template-columns: 1fr; }
+    .database-manager .db-records { max-height: 280px; }
+    .database-manager .db-search { flex-wrap: wrap; }
+    .database-manager .db-search input { flex-basis: 100%; }
+}

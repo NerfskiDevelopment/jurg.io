@@ -1,0 +1,55 @@
+.nutrition-page { width: 100%; }
+.nutrition-page button, .nutrition-dialog button { cursor: pointer; min-height: 44px; border-radius: 12px; border: 1px solid #d9d6ce; background: #fffdf7; color: #30372f; padding: 10px 16px; font: inherit; }
+.nutrition-page .text-link { background: transparent; border: 0; }
+.nutrition-page .quick-action[role="button"] { cursor: pointer; }
+.nutrition-page button:disabled, .nutrition-dialog button:disabled { opacity: .6; cursor: wait; }
+.nutrition-page button:focus-visible, .nutrition-page [role="button"]:focus-visible, .nutrition-dialog button:focus-visible { outline: 3px solid #879c70; outline-offset: 3px; }
+.nutrition-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.nutrition-toolbar label { display: flex; align-items: center; gap: 10px; }
+.nutrition-toolbar input { min-height: 44px; border: 1px solid #d9d6ce; border-radius: 12px; padding: 8px; font: inherit; background: #fffdf7; color: #30372f; }
+.nutrition-macros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.nutrition-page .calorie-visual { flex: 0 0 180px; width: 180px; height: 180px; margin: 0; }
+.nutrition-page .calorie-ring { width: 100%; min-width: 0; height: 100%; }
+.nutrition-page .home-calorie-progress { stroke: var(--accent, #6e8a65); filter: none; }
+.nutrition-page .calorie-ring-content strong { font-size: 26px; }
+.nutrition-page .calorie-ring-content span { color: var(--text-secondary, #77796e); font-size: 12px; }
+.nutrition-page .macro-item > strong { white-space: normal; overflow-wrap: anywhere; }
+.nutrition-macro-fill { display: block; height: 100%; background: #849970; border-radius: inherit; }
+.nutrition-entries { display: grid; gap: 12px; }
+.nutrition-entry { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px; border: 1px solid #e0dfd6; border-radius: 18px; background: #fffdf7; }
+.nutrition-entry-copy { min-width: 0; overflow-wrap: anywhere; }
+.nutrition-entry h3 { margin: 5px 0 8px; }
+.nutrition-entry p { margin: 6px 0; color: #60665c; font-size: .9rem; white-space: pre-wrap; }
+.nutrition-entry-actions { display: flex; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
+.nutrition-empty { padding: 24px; border: 1px dashed #cecec3; border-radius: 18px; color: #60665c; }
+.nutrition-error { color: #922e26; font-size: .9rem; }
+.nutrition-error[hidden] { display: none; }
+.nutrition-dialog { width: min(600px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid #d9d6ce; border-radius: 22px; background: #faf8ef; color: #30372f; box-shadow: 0 20px 70px #0003; }
+.nutrition-dialog::backdrop { background: #16201980; }
+body.nutrition-dialog-open { overflow: hidden; }
+.nutrition-form { padding: 24px; }
+.nutrition-form header, .nutrition-form footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.nutrition-form header h2 { margin: 0; font-size: 1.5rem; }
+.nutrition-form header button { font-size: 1.5rem; }
+.nutrition-form > p { line-height: 1.5; }
+.nutrition-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.nutrition-fields label { display: flex; flex-direction: column; gap: 7px; min-width: 0; font-size: .95rem; }
+.nutrition-wide { grid-column: 1 / -1; }
+.nutrition-fields input, .nutrition-fields select, .nutrition-fields textarea { width: 100%; box-sizing: border-box; min-height: 44px; padding: 12px; border: 1px solid #cccdbf; border-radius: 10px; background: #fffdf7; color: #30372f; font: inherit; font-size: 16px; }
+.nutrition-fields textarea { resize: vertical; }
+.nutrition-fields [aria-invalid="true"] { border-color: #922e26; }
+.nutrition-form footer { margin-top: 24px; justify-content: flex-end; }
+.nutrition-form footer [type="submit"], .nutrition-toolbar [data-nutrition-action="create"] { background: #354c35; color: #fff; border-color: #354c35; }
+@media (max-width: 760px) {
+    .nutrition-macros { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nutrition-entry { align-items: stretch; flex-direction: column; gap: 12px; }
+    .nutrition-entry-actions button { flex: 1; padding: 10px; }
+}
+@media (max-width: 600px) {
+    .nutrition-page .nutrition-top { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+    .nutrition-dialog { width: 100%; max-width: none; height: 100dvh; max-height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+    .nutrition-form { padding: 20px 16px max(24px, env(safe-area-inset-bottom)); }
+    .nutrition-form footer { position: sticky; bottom: -1px; background: #faf8ef; padding: 12px 0; }
+    .nutrition-form footer button { flex: 1; }
+    .nutrition-page .section-heading { flex-wrap: wrap; gap: 8px; }
+}

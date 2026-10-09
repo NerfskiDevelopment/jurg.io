@@ -64,9 +64,12 @@ function loadLoginCookie(){
                 //redirect("dashboard.html");
                 localStorage.removeItem("authRedirect");
                 localStorage.setItem("permissions", response[1]);
+                if (typeof applyPermissions === 'function') applyPermissions();
             }
             //NOT OK
             else{
+                localStorage.setItem("permissions", "0");
+                if (typeof applyPermissions === 'function') applyPermissions();
                 //get query params and post data
                 const queryString = window.location;
                 //const urlParams = new URLSearchParams(queryString);

@@ -461,6 +461,10 @@ function searchPage() {
 ------------------------- */
 function applyPermissions() {
     const perms = dom.permissions();
+    document.querySelectorAll('.admin-database-link').forEach(link => {
+        link.style.display = perms >= 6 ? '' : 'none';
+        link.closest('nav')?.classList.toggle('has-database-link', perms >= 6);
+    });
 
     const disableIds = [
         'DASHBOARD_COMPANY_DIRECTORY.HTML',
@@ -565,6 +569,7 @@ function getDebugMode(){
 }
 
 window.addEventListener("load", (event) => {
+    applyPermissions();
     showLoader();
     loadLoginCookie();
 
@@ -574,8 +579,11 @@ window.addEventListener("load", (event) => {
         console.log("here");
         //nav('DASHBOARD_HOME.HTML');
     }
+    //nav('DASHBOARD_HOME.HTML');
     nav('DASHBOARD_HOME.HTML');
+
     //checking if we can even view the workflow dashboard
     // -> if not we don't show certain things.
     var permissions = localStorage.getItem("permissions");
 });
+

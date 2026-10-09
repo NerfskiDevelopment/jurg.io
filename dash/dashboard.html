@@ -20,12 +20,18 @@
     <link rel="stylesheet" href="./css/ctrl_center.css">
     <link rel="stylesheet" href="./css/overlay.css">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/database_manager.css">
+    <link rel="stylesheet" href="./css/nutrition.css">
 
     <script src="./js/web.js" type="text/javascript"></script>
     <script src="./js/login.js" type="text/javascript"></script>
     <script src="./js/nav.js" type="text/javascript"></script>
     <script src="./js/functions.js" type="text/javascript"></script>
     <script src="./js/dashboard_new.js" type="text/javascript"></script>
+    <script src="./js/database_manager.js" type="text/javascript"></script>
+    <script src="./js/admin_dashboard.js" type="text/javascript"></script>
+    <script src="./js/nutrition.js" type="text/javascript"></script>
+    <script src="./js/tasks.js" type="text/javascript"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 
 </head>
@@ -127,9 +133,17 @@
                 </svg>
                 <span>Lists</span>
             </a>
+            <a id="CONTROL_CENTER.HTML" onclick="nav('CONTROL_CENTER.HTML', this);" class="nav-item admin-database-link" style="display:none;">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <ellipse cx="12" cy="5" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                <span>Admin</span>
+            </a>
         </nav>
 
         <div id="page-overlay-root"></div>
     </div>
 </body>
 </html>
+

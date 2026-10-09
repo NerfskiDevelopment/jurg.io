@@ -235,6 +235,21 @@
     animation: calorieRing 1.2s cubic-bezier(.2,.8,.2,1) both;
 }
 
+.ring-progress.home-calorie-progress {
+    stroke-dasharray: var(--home-ring-circumference);
+    stroke-dashoffset: var(--home-ring-offset);
+    animation: homeCalorieRing 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes homeCalorieRing {
+    from {
+        stroke-dashoffset: var(--home-ring-circumference);
+    }
+    to {
+        stroke-dashoffset: var(--home-ring-offset);
+    }
+}
+
 .calorie-ring-content {
     position: absolute;
 
