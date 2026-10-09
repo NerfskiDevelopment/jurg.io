@@ -1,79 +1,35 @@
-function login_clicked(){
-    //getting variables
-    var username = document.getElementById("username_field").value;
-    var password = document.getElementById("passwordInput").value;
-
-    //getting result
-    var result = login(username, password, function(result){
-        //checking result
-        if(result == "CONTINUE"){
-            localStorage.setItem("u", username);
-            localStorage.setItem("p", password);
-            document.getElementById("login-error").innerHTML = "loading...";
-
-            var a = localStorage.getItem("authRedirect");
-
-            if(a != "" && a != null){
-                
-                localStorage.removeItem("authRedirect");
-                window.location.href = a;
-            }
-            else{
-                var ext = '';
-                if(getDebugMode()){
-                    ext = '?debug_mode=true';
-                }
-
-                //console.log(ext);
-                redirect("dashboard.html" + ext);
-            }            
-        }
-        //throwing error
-        else{
-            document.getElementById("login-error").innerHTML = result;
-                    document.getElementById("login-error").classList = "login-error visible";
-        }
-    });
+let loginBusy = false;
+function showLoginError(message) {
+    const error = document.getElementById('login-error');
+    error.textContent = message;
+    error.classList.add('visible');
 }
-
-function forgotPassword(){
-    document.getElementById("login-error").innerHTML = "loading...";
-    //getting variables
-    var username = document.getElementById("username_field").value;
-    
-    if(username != ""){
-        var result = forgotlogin(username);
-        document.getElementById("login-error").innerHTML = result;
-        document.getElementById("login-error").classList = "login-error visible";
-    }
-    else{
-        document.getElementById("login-error").innerHTML = "Your email cannot be null.";
-        document.getElementById("login-error").classList = "login-error visible";
-    }
+async function login_clicked() {
+    if (loginBusy) return;
+    loginBusy = true;
+    const button = document.querySelector('.login-submit');
+    if (button) button.disabled = true;
+    showLoginError('Signing in…');
+    const username = document.getElementById('username_field').value;
+    const password = document.getElementById('passwordInput').value;
+    try {
+        await login(username, password, result => {
+            if (result === 'CONTINUE') {
+                document.getElementById('passwordInput').value = '';
+                redirect(dashboardURL());
+            } else showLoginError(result);
+        });
+    } finally { loginBusy = false; if (button) button.disabled = false; }
 }
-
-function getDebugMode(){
-    const queryString = window.location.search;
-
-    // 2. Initialize URLSearchParams
-    const urlParams = new URLSearchParams(queryString);
-
-    // 3. Extract individual parameters
-    const debug_mode = urlParams.get('debug_mode');
-
-
-    if(debug_mode != null){
-        return true;
-    }
-    else{
-        return false;
-    }
+async function forgotPassword() {
+    const username = document.getElementById('username_field').value;
+    if (!username) { showLoginError('Enter your username.'); return; }
+    showLoginError('Loading…');
+    try { showLoginError(await forgotlogin(username)); } catch { showLoginError('Unable to reach the server. Please try again.'); }
 }
-
-window.addEventListener("load", (event) => {
-    var u = localStorage.getItem("u");
-    var p = localStorage.getItem("p");
-
-    document.getElementById("username_field").value = u;
-    document.getElementById("passwordInput").value = p;
+function getDebugMode() { return new URLSearchParams(window.location.search).has('debug_mode'); }
+window.addEventListener('load', async () => {
+    const result = await restoreLoginSession();
+    // Do not interrupt a user who has started entering their credentials.
+    if (result.status === 'valid' && !loginBusy && !document.getElementById('passwordInput').value && !document.getElementById('username_field').value) redirect(dashboardURL());
 });

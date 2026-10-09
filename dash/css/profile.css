@@ -16,6 +16,12 @@
 }
 
 
+.profile-page .profile-section-heading { flex-wrap: wrap; gap: 12px; }
+.profile-page .profile-name, .profile-page .profile-stat > div:last-child { min-width: 0; overflow-wrap: anywhere; }
+.profile-page .profile-detail-content { min-width: 0; overflow-wrap: anywhere; }
+.profile-goal-help { color: var(--profile-muted); line-height: 1.5; margin: 0 0 18px; }
+.profile-page .profile-back-button { padding: 0; }
+
 /* Header */
 
 .profile-header {

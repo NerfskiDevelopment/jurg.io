@@ -21,10 +21,9 @@ window.initTaskPage = function () {
         root.querySelectorAll('button').forEach(button => button.disabled = value);
         rows.forEach(row => row.querySelector('[data-task-complete]').disabled = value || row.dataset.hidden === 'true');
     }
-    const headers = () => ({ Authorization: localStorage.getItem('token') || '' });
+    const headers = () => ({ 'X-Requested-With': 'XMLHttpRequest' });
     function access(response) {
         if (response.status === 401) {
-            localStorage.removeItem('token');
             window.location.href = 'index.html' + (getDebugMode() ? '?debug_mode=true' : '');
             throw new Error('Please sign in again.');
         }
@@ -34,7 +33,7 @@ window.initTaskPage = function () {
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 15000);
         try {
-            const response = await fetch(base + path, { headers: headers(), signal: controller.signal });
+            const response = await fetch(base + path, { credentials: 'include', headers: headers(), signal: controller.signal });
             access(response);
             if (!response.ok) throw new Error(response.status === 404 ? 'This record is unavailable. Refresh the page.' : 'Unable to load. Please try again.');
             return await response.text();
@@ -50,7 +49,7 @@ window.initTaskPage = function () {
             if (!html.includes('class="tasks-page"')) throw new Error('Unable to refresh your tasks.');
             if (root.isConnected) {
                 window.taskPageRestore = { ...state };
-                renderHTML(html);
+                renderHTML(html, { scroll: 'preserve' });
             }
             return true;
         } catch (e) { showError(e.name === 'AbortError' ? 'Loading took too long. Please refresh.' : e.message); return false; }
@@ -59,7 +58,7 @@ window.initTaskPage = function () {
     async function save(fields) {
         fields.set('now', now());
         const response = await fetch(base + 'action/TASK_SAVE', {
-            method: 'POST', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' }, body: fields.toString()
+            method: 'POST', credentials: 'include', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' }, body: fields.toString()
         });
         access(response);
         const result = await response.json();
@@ -142,7 +141,7 @@ window.initTaskPage = function () {
             dialog.addEventListener('cancel', event => { event.preventDefault(); close(); });
             dialog.addEventListener('close', () => {
                 dialog.remove(); document.body.classList.remove('tasks-editor-open');
-                if (trigger?.isConnected) trigger.focus();
+                if (trigger?.isConnected) trigger.focus({ preventScroll: true });
             }, { once:true });
             dialog.querySelectorAll('[data-task-cancel]').forEach(button => button.addEventListener('click',close));
             form.addEventListener('input', event => {

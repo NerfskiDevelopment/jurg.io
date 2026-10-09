@@ -7,10 +7,9 @@ window.initDatabaseManager = function () {
 
     function handleAccessChange(response) {
         if (response.status !== 401 && response.status !== 403) return false;
-        localStorage.setItem('permissions', '0');
+        setLoginPermissions(0);
         applyPermissions();
         if (response.status === 401) {
-            localStorage.removeItem('token');
             window.location.href = 'index.html' + (getDebugMode() ? '?debug_mode=true' : '');
         } else {
             renderHTML('<section><h2>Administrator access required</h2><p>Your account no longer has access to this section.</p></section>');
@@ -27,7 +26,7 @@ window.initDatabaseManager = function () {
         try {
             const params = new URLSearchParams({ table: root.dataset.table, mode, key: key || '' });
             const response = await fetch(getServerURL() + '/V1/website/html/DATABASE_EDITOR.HTML?' + params, {
-                headers: { Authorization: localStorage.getItem('token') || '' }, signal: controller.signal
+                credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: controller.signal
             });
             if (handleAccessChange(response)) return;
             const html = await response.text();
@@ -53,7 +52,7 @@ window.initDatabaseManager = function () {
             dialog.addEventListener('close', () => {
                 dialog.remove();
                 document.body.classList.remove('db-editor-open');
-                if (trigger.isConnected) trigger.focus();
+                if (trigger.isConnected) trigger.focus({ preventScroll: true });
             }, { once: true });
             dialog.querySelectorAll('[data-db-cancel]').forEach(button => button.addEventListener('click', closeEditor));
 
@@ -90,7 +89,7 @@ window.initDatabaseManager = function () {
                 form.querySelectorAll('[aria-invalid]').forEach(element => element.removeAttribute('aria-invalid'));
                 try {
                     const response = await fetch(getServerURL() + '/V1/website/action/DATABASE_SAVE', {
-                        method: 'POST', headers: { Authorization: localStorage.getItem('token') || '', 'Content-Type': 'application/x-www-form-urlencoded' },
+                        method: 'POST', credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/x-www-form-urlencoded' },
                         body: new URLSearchParams(new FormData(form)).toString()
                     });
                     if (response.status === 401 || response.status === 403) {
@@ -149,12 +148,12 @@ window.initDatabaseManager = function () {
         const timeout = setTimeout(() => controller.abort(), 15000);
         try {
             const response = await fetch(getServerURL() + '/V1/website/html/DATABASE.HTML?' + params, {
-                headers: { Authorization: localStorage.getItem('token') || '' }, signal: controller.signal
+                credentials: 'include', headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: controller.signal
             });
             if (handleAccessChange(response)) return;
             const html = await response.text();
             if (!response.ok || !html.includes('class="database-manager"')) throw new Error('Unable to load records.');
-            if (root.isConnected) renderHTML(html);
+            if (root.isConnected) renderHTML(html, { scroll: 'preserve' });
         } catch (failure) {
             if (root.isConnected) {
                 error.textContent = failure.name === 'AbortError' ? 'The request timed out. Try refreshing.'

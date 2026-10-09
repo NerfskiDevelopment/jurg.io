@@ -1,4 +1,4 @@
-var localStorage = window.localStorage;
+
 
 function redirect(location){
     window.location.replace("./" + location);
@@ -17,7 +17,7 @@ function nav_button(location){
 }
 
 function setup_nav_header(){
-    var username = localStorage.getItem("username");
+    var username = getLoginUsername();
     document.getElementById("nav-login-header").innerHTML = '<button class="nav-button nav-logout" onclick="nav_logout();">Logout</button><image class="nav-login-logo" src="./images/user.png"></image><h3 class="nav-username">' + username + '</h3>';
 }
 

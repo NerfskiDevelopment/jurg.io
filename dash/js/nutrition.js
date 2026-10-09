@@ -6,11 +6,10 @@ window.initNutrition = function () {
     const dateInput = root.querySelector('[data-nutrition-date]');
     const base = getServerURL().replace(/\/$/, '') + '/V1/website/';
     let loading = false;
-    const headers = () => ({ Authorization: localStorage.getItem('token') || '' });
+    const headers = () => ({ 'X-Requested-With': 'XMLHttpRequest' });
     const showError = message => { if (root.isConnected) { error.textContent = message; error.hidden = false; } };
     function access(response) {
         if (response.status === 401) {
-            localStorage.removeItem('token');
             window.location.href = 'index.html' + (getDebugMode() ? '?debug_mode=true' : '');
             throw new Error('Please sign in again.');
         }
@@ -20,7 +19,7 @@ window.initNutrition = function () {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
         try {
-            const response = await fetch(base + path, { headers: headers(), signal: controller.signal });
+            const response = await fetch(base + path, { credentials: 'include', headers: headers(), signal: controller.signal });
             access(response);
             if (!response.ok) throw new Error(response.status === 404 ? 'This entry is no longer available. Refresh the page.' : 'Unable to load. Please try again.');
             return await response.text();
@@ -33,15 +32,15 @@ window.initNutrition = function () {
         error.hidden = true;
         try {
             const html = await read('html/' + root.dataset.page + '?' + new URLSearchParams({ date }));
-            if (!html.includes('class="nutrition-page"')) throw new Error('Unable to refresh your food log.');
-            if (root.isConnected) renderHTML(html);
+            if (!html.includes('data-init="initNutrition"')) throw new Error(root.dataset.page === 'PROFILE.HTML' ? 'Unable to refresh your health goals.' : 'Unable to refresh your food log.');
+            if (root.isConnected) renderHTML(html, { scroll: 'preserve' });
         } catch (e) { showError(e.name === 'AbortError' ? 'Loading took too long. Please refresh.' : e.message); }
         finally { loading = false; root.removeAttribute('aria-busy'); }
     }
     async function save(fields) {
         // Do not abort a write: the server may already have persisted it.
         const response = await fetch(base + 'action/NUTRITION_SAVE', {
-            method: 'POST', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' },
+            method: 'POST', credentials: 'include', headers: { ...headers(), 'Content-Type': 'application/x-www-form-urlencoded' },
             body: fields.toString()
         });
         access(response);
@@ -76,7 +75,7 @@ window.initNutrition = function () {
             dialog.addEventListener('close', () => {
                 dialog.remove();
                 document.body.classList.remove('nutrition-dialog-open');
-                if (trigger.isConnected) trigger.focus();
+                if (trigger.isConnected) trigger.focus({ preventScroll: true });
             }, { once: true });
             dialog.querySelectorAll('[data-nutrition-cancel]').forEach(button => button.addEventListener('click', close));
             form.addEventListener('input', event => {
@@ -149,7 +148,7 @@ window.initNutrition = function () {
         const target = event.target.closest('[role="button"][data-nutrition-action]');
         if (target && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); target.click(); }
     });
-    dateInput.addEventListener('change', () => {
+    dateInput?.addEventListener('change', () => {
         if (dateInput.value && dateInput.checkValidity()) reload(dateInput.value);
     });
     const today = new Date();

@@ -6,9 +6,13 @@ function httpGet(theUrl, callback = null)
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
 
+    xmlHttp.withCredentials = true;
+    xmlHttp.timeout = 15000;
+    xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
     xmlHttp.onload = function(){
         if(callback != null){
-            callback(xmlHttp.responseText)
+            callback(xmlHttp.responseText, xmlHttp.status)
         }
     }
 
@@ -39,11 +43,15 @@ function httpGetWithAuth(theUrl, bearer, callback = null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
-    xmlHttp.setRequestHeader("Authorization", bearer);
+    // The browser supplies the HttpOnly session cookie.
+
+    xmlHttp.withCredentials = true;
+    xmlHttp.timeout = 15000;
+    xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     xmlHttp.onload = function(){
         if(callback != null){
-            callback(xmlHttp.responseText)
+            callback(xmlHttp.responseText, xmlHttp.status)
         }
     }
 
@@ -78,9 +86,13 @@ function httpPost(theUrl, params = '', callback = null)
     xmlHttp.open( "POST", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
+    xmlHttp.withCredentials = true;
+    xmlHttp.timeout = 15000;
+    xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
     xmlHttp.onload = function(){
         if(callback != null){
-        callback(xmlHttp.responseText)
+        callback(xmlHttp.responseText, xmlHttp.status)
         }
     }
 
@@ -98,7 +110,7 @@ function httpPost(theUrl, params = '', callback = null)
     };
 
     try {
-        xmlHttp.send( encodeURI(params) );
+        xmlHttp.send(params);
     }
     catch(error) {
         // This only catches instant execution errors (e.g., malformed URL syntax)
@@ -111,12 +123,16 @@ function httpPostWithAuth(theUrl, bearer, params = '', callback = null)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "POST", encodeURI(getServerURL() + theUrl), true ); // false for synchronous request
-    xmlHttp.setRequestHeader("Authorization", bearer);
+    // The browser supplies the HttpOnly session cookie.
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xmlHttp.withCredentials = true;
+    xmlHttp.timeout = 15000;
+    xmlHttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     xmlHttp.onload = function(){
         if(callback != null){
-        callback(xmlHttp.responseText)
+        callback(xmlHttp.responseText, xmlHttp.status)
         }
     }
 
@@ -134,7 +150,7 @@ function httpPostWithAuth(theUrl, bearer, params = '', callback = null)
     };
 
     try {
-        xmlHttp.send( encodeURI(params) );
+        xmlHttp.send(params);
     }
     catch(error) {
         // This only catches instant execution errors (e.g., malformed URL syntax)
@@ -181,3 +197,4 @@ function getServerURL(){
         return URI_PROD;
     }
 }
+
